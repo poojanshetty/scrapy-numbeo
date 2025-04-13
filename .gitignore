@@ -174,3 +174,4 @@ cython_debug/
 .pypirc
 /costofliving/cost_of_living.txt
 /costofliving/output.json
+.idea
