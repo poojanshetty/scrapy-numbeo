@@ -22,13 +22,13 @@ class CostOfLivingSpider(scrapy.Spider):
 
     def parse(self, response):
         item = CostoflivingItem()
-        city = response.url.split("/")[-1].split("?")[0]
+        url_city = response.url.split("/")[-1].split("?")[0]
 
         item["today"] = date.today().strftime("%Y-%m-%d")
-        item["city"] = city
-        item["province"] = cities[city]["province"]
-        item["country"] = cities[city]["country"]
-        item["continent"] = cities[city]["continent"]
+        item["city"] = cities[url_city]["city"]
+        item["province"] = cities[url_city]["province"]
+        item["country"] = cities[url_city]["country"]
+        item["continent"] = cities[url_city]["continent"]
 
         table = response.xpath('.//table[@class="data_wide_table new_bar_table"]')
 
@@ -41,6 +41,7 @@ class CostOfLivingSpider(scrapy.Spider):
                 col_cat = col_cat.replace(" ...", "").replace(".", "_").replace("(", "").replace(")", "")
                 col_cat = col_cat.replace("/", "").replace(" ", "_").replace("-", "_").replace("+", "_plus")
                 col_cat = col_cat.replace("1_pair", "one_pair").replace("1_summer", "one_summer")
+                col_cat = col_cat.replace("buffalo", "beef")  # Buffalo in India, Beef elsewhere
 
                 prices = tr.xpath(".//td/span/text()").getall()
                 price = prices[0].strip().replace("\xa0$", "").replace(",", "")

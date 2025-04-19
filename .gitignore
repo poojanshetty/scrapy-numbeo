@@ -175,3 +175,4 @@ cython_debug/
 /costofliving/cost_of_living.txt
 /costofliving/output.json
 .idea
+/costofliving/costofliving/spiders/numbeo_cities.csv
